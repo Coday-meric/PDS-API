@@ -4,9 +4,11 @@ const Rdv_data = db.rdv_data;
 // Create request for estimate price
 exports.create = (req, res) => {
 // Validate request
-    if (!req.body.sct) {
-        res.status(400).send({message: "Secteur not be empty!"});
-        return;
+    if (!req.body.ras) {
+        if (!req.body.num_enq && !req.body.date_pds ) {
+            res.status(400).send({message: "Numero enqueteur ou date de point ne peuvent pas etre vide!"});
+            return;
+        }
     }
 
     // Create a request
@@ -14,7 +16,8 @@ exports.create = (req, res) => {
         num_enq: req.body.num_enq,
         sct: req.body.sct,
         date_rdv: req.body.date_rdv,
-        date_pds: req.body.date_pds
+        date_pds: req.body.date_pds,
+        ras: req.body.ras
     });
     console.log(rdvData);
     console.log(rdvData.id);

@@ -5,6 +5,7 @@ module.exports = mongoose => {
             sct: Number,
             date_rdv: String,
             date_pds: String,
+            ras: Boolean
         },
         {timestamps: true}
     );

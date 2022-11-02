@@ -4,16 +4,19 @@ const Enq_data = db.enq_data;
 // Create request for estimate price
 exports.create = (req, res) => {
 // Validate request
-    if (!req.body.sct) {
-        res.status(400).send({message: "Secteur not be empty!"});
-        return;
+    if (!req.body.ras){
+        if (!req.body.num_enq && !req.body.date_pds ) {
+            res.status(400).send({message: "Numero enqueteur ou date de point ne peuvent pas etre vide!"});
+            return;
+        }
     }
 
     // Create a request
     const enqData = new Enq_data({
         num_enq: req.body.num_enq,
         sct: req.body.sct,
-        date_pds: req.body.date_pds
+        date_pds: req.body.date_pds,
+        ras: req.body.ras
     });
     console.log(enqData);
     console.log(enqData.id);
