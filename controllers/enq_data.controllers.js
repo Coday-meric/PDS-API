@@ -16,6 +16,8 @@ exports.create = (req, res) => {
         num_enq: req.body.num_enq,
         sct: req.body.sct,
         date_pds: req.body.date_pds,
+        week_pds: req.body.week_pds,
+        year_pds: req.body.year_pds,
         ras: req.body.ras
     });
     console.log(enqData);
@@ -179,5 +181,45 @@ exports.findWithDatePdsAndNumEnq = (req, res) => {
             res
                 .status(500)
                 .send({message: "Error retrieving request with date=" + date + " and investigator number " + enq});
+        });
+};
+
+// Retrieve Array value with Val Func id
+exports.findWithDatePds = (req, res) => {
+    // Recover request with id
+    const date = req.params.date
+
+    console.log(date);
+
+    Enq_data.find({ date_pds: date})
+        .then(data => {
+            if (!data)
+                res.status(404).send({message: "Not found request with date " + date });
+            else res.send(data);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .send({message: "Error retrieving request with date=" + date });
+        });
+};
+
+// Retrieve Array value with Val Func id
+exports.findWithWeekNbr = (req, res) => {
+    // Recover request with id
+    const week = req.params.week_pds
+    const year = req.params.year_pds
+    console.log(week, year);
+
+    Enq_data.find({ week_pds: week, year_pds: year })
+        .then(data => {
+            if (!data)
+                res.status(404).send({message: "Not found request with week " + week + " and year " + year});
+            else res.send(data);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .send({message: "Error retrieving request with week=" + week + " and year " + year});
         });
 };

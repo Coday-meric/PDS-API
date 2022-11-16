@@ -5,6 +5,8 @@ module.exports = mongoose => {
             sct: Number,
             date_rdv: String,
             date_pds: String,
+            week_pds: Number,
+            year_pds: Number,
             ras: Boolean
         },
         {timestamps: true}

@@ -5,7 +5,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 
+
+
 var app = express();
+
 
 // DB MongoDB
 const db = require("./db/models");
@@ -41,5 +44,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
+
 
 module.exports = app;

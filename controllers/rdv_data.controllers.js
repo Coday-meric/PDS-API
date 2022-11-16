@@ -17,6 +17,8 @@ exports.create = (req, res) => {
         sct: req.body.sct,
         date_rdv: req.body.date_rdv,
         date_pds: req.body.date_pds,
+        week_pds: req.body.week_pds,
+        year_pds: req.body.year_pds,
         ras: req.body.ras
     });
     console.log(rdvData);
@@ -179,5 +181,25 @@ exports.findWithDatePdsAndNumEnq = (req, res) => {
             res
                 .status(500)
                 .send({message: "Error retrieving request with date=" + date + " and investigator number " + enq});
+        });
+};
+
+// Retrieve Array value with Val Func id
+exports.findWithWeekNbr = (req, res) => {
+    // Recover request with id
+    const week = req.params.week_pds
+    const year = req.params.year_pds
+    console.log(week, year);
+
+    Rdv_data.find({ week_pds: week, year_pds: year })
+        .then(data => {
+            if (!data)
+                res.status(404).send({message: "Not found request with week " + week + " and year " + year});
+            else res.send(data);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .send({message: "Error retrieving request with week=" + week + " and year " + year});
         });
 };

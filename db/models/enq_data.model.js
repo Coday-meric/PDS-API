@@ -4,6 +4,8 @@ module.exports = mongoose => {
             num_enq: Number,
             sct: Number,
             date_pds: String,
+            week_pds: Number,
+            year_pds: Number,
             ras: Boolean
         },
         {timestamps: true}
